@@ -23,7 +23,7 @@ const json = require(packagePath);
 
 delete json.scripts.install;
 
-json.name = 'puppeteer-core';
+// json.name = 'puppeteer-core';
 json.main = './lib/cjs/puppeteer/puppeteer-core.js';
 json.exports['.'].import = './lib/esm/puppeteer/puppeteer-core.js';
 json.exports['.'].require = './lib/cjs/puppeteer/puppeteer-core.js';

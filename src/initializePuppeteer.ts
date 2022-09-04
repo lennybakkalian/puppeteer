@@ -21,8 +21,8 @@ import {PUPPETEER_REVISIONS} from './revisions.js';
 /**
  * @internal
  */
-export const initializePuppeteer = (packageName: string): PuppeteerNode => {
-  const isPuppeteerCore = packageName === 'puppeteer-core';
+export const initializePuppeteer = (_packageName: string): PuppeteerNode => {
+  const isPuppeteerCore = true;
   const puppeteerRootDirectory = undefined;
   let preferredRevision = PUPPETEER_REVISIONS.chromium;
   // puppeteer-core ignores environment variables

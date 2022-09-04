@@ -16,6 +16,8 @@ jobs:
       - name: Install dependencies and build 🔧
         run: npm install && npm run build
       - name: Publish package on NPM 📦
-        run: npm publish
+        run:
+          utils/prepare_puppeteer_core.js
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
