@@ -86,4 +86,4 @@ async function download() {
   downloadBrowser();
 }
 
-download();
+// download();

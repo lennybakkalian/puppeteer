@@ -1,6 +1,6 @@
 {
   "name": "@studydev/puppeteer-fork",
-  "version": "17.3.0",
+  "version": "17.4.0",
   "description": "A high-level API to control headless Chrome over the DevTools Protocol",
   "keywords": [
     "puppeteer",
