@@ -1,39 +1,21 @@
-name: Publish
-
+name: Publish to NPM
 on:
-  workflow_dispatch:
-  push:
-    tags:
-      - v*
-
+  release:
+    types: [created]
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: npm install
-      - name: Build puppeteer
-        run: npm run build
-      - name: Publish puppeteer
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies and build 🔧
+        run: npm install && npm run build
+      - name: Publish package on NPM 📦
+        run: npm publish
         env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN_PUPPETEER}}
-        run: |
-          npm config set registry 'https://wombat-dressing-room.appspot.com/'
-          npm config set '//wombat-dressing-room.appspot.com/:_authToken' '${NPM_TOKEN}'
-          echo "Publishing puppeteer"
-          npm publish
-          # DEPRECATED_RANGE=$(node utils/get_deprecated_version_range.js)
-          # echo "Deprecating old puppeteer versions: $DEPRECATED_RANGE"
-          # npm deprecate puppeteer@$DEPRECATED_RANGE "Version no longer supported. Upgrade to @latest"
-      - name: Publish puppeteer-core
-        env:
-          NPM_TOKEN: ${{secrets.NPM_TOKEN_PUPPETEER_CORE}}
-        run: |
-          utils/prepare_puppeteer_core.js
-          npm config set registry 'https://wombat-dressing-room.appspot.com/'
-          npm config set '//wombat-dressing-room.appspot.com/:_authToken' '${NPM_TOKEN}'
-          npm publish
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
